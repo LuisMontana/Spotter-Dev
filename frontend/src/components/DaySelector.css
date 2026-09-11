@@ -1,0 +1,37 @@
+.day-selector {
+  display: flex;
+  gap: 6px;
+  padding: 14px 24px 0;
+  overflow-x: auto;
+}
+
+.day-selector__tab {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-hairline);
+  border-bottom: none;
+  color: var(--text-muted);
+  padding: 8px 14px;
+  font-size: 12px;
+  font-family: var(--font-ui);
+  cursor: pointer;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.day-selector__tab span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.day-selector__tab.is-active {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  border-color: var(--accent);
+  border-bottom: 2px solid var(--bg-base);
+  position: relative;
+  top: 1px;
+}

@@ -67,3 +67,17 @@ a {
   font-weight: 600;
   margin: 4px 0 0;
 }
+
+.log-sheet-container {
+  padding: 14px 24px 24px;
+}
+
+.error-banner {
+  margin: 14px 24px 0;
+  padding: 10px 14px;
+  background: rgba(217, 86, 76, 0.12);
+  border: 1px solid var(--status-on-duty-not-driving);
+  color: #f0a29b;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}

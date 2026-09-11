@@ -1,40 +1,28 @@
 import { useState } from "react";
 import TripForm from "./components/TripForm";
 import MapView from "./components/MapView";
+import DaySelector from "./components/DaySelector";
+import LogSheet from "./components/LogSheet";
+import { planTrip } from "./api";
 
 export default function App() {
-  const testRoute = {
-    current_location: {
-      name: "Denver, CO",
-      coordinates: [-104.985798, 39.740959],
-    },
-    pickup_location: {
-      name: "Dallas, TX",
-      coordinates: [-96.784359, 32.736212],
-    },
-    dropoff_location: {
-      name: "Chicago, IL",
-      coordinates: [-87.66063, 41.87897],
-    },
-    deadhead_geometry: [
-      [-104.985798, 39.740959],
-      [-101.5, 37.0],
-      [-98.5, 34.5],
-      [-96.784359, 32.736212],
-    ],
-    loaded_geometry: [
-      [-96.784359, 32.736212],
-      [-94.0, 35.5],
-      [-91.0, 38.5],
-      [-87.66063, 41.87897],
-    ],
-    total_distance_miles: 1756.7,
-    total_drive_hours: 40.6,
-  };
-
+  const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [activeDay, setActiveDay] = useState(0);
 
   async function handleSubmit(payload) {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await planTrip(payload);
+      setResult(data);
+      setActiveDay(0);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -46,7 +34,22 @@ export default function App() {
           <h1>Trip route &amp; daily logs</h1>
         </div>
 
-        <MapView route={testRoute} />
+        <MapView route={result?.route} />
+
+        {error && <div className="error-banner">{error}</div>}
+
+        {result && (
+          <>
+            <DaySelector
+              days={result.daily_logs}
+              activeIndex={activeDay}
+              onSelect={setActiveDay}
+            />
+            <div className="log-sheet-container">
+              <LogSheet day={result.daily_logs[activeDay]} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
