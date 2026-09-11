@@ -79,6 +79,12 @@ export default function TripForm({ onSubmit, loading }) {
           {loading ? "Planning\u2026" : "Plan trip"}
         </button>
       </form>
+      <div className="trip-form__notes">
+        <div className="trip-form__notes-title">Notes</div>
+        <ul>
+          <li>Please add the state short-hand, otherwise it might fail to correctly pinpoint the locations</li>
+        </ul>
+      </div>
     </aside>
   );
 }

@@ -44,7 +44,14 @@ def get_route(coords: list[tuple[float, float]]) -> dict:
         json={"coordinates": [[lon, lat] for lon, lat in coords]},
         timeout=15,
     )
-    resp.raise_for_status()
+
+    try:
+        resp.raise_for_status()
+    except requests.exceptions.HTTPError as exc:
+        raise RoutingError(
+            f"Could not find a route between the given locations: {exc}"
+        ) from exc
+    
     data = resp.json()
     feature = data["features"][0]
     summary = feature["properties"]["summary"]

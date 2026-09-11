@@ -59,3 +59,23 @@
   background: var(--accent-dim);
   cursor: not-allowed;
 }
+
+.trip-form__notes {
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.trip-form__notes-title {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.trip-form__notes ul {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
