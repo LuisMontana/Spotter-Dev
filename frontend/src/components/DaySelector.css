@@ -3,6 +3,7 @@
   gap: 6px;
   padding: 14px 24px 0;
   overflow-x: auto;
+  height: 100px;
 }
 
 .day-selector__tab {
