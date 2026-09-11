@@ -157,3 +157,43 @@ def plan_trip(
     add_segment(DUTY_ON_NOT_DRIVING, DROPOFF_DURATION_HOURS, "Drop-off", dropoff_location)
 
     return segments
+
+def split_into_daily_logs(segments: list[Segment]) -> list[dict]:
+    if not segments:
+        return []
+
+    days: dict[object, list[Segment]] = {}
+    for seg in segments:
+        cursor = seg.start
+        while cursor < seg.end:
+            day_key = cursor.date()
+            next_midnight = datetime(
+                cursor.year, cursor.month, cursor.day
+            ) + timedelta(days=1)
+            piece_end = min(seg.end, next_midnight)
+            days.setdefault(day_key, []).append(
+                Segment(seg.status, cursor, piece_end, seg.label, seg.location)
+            )
+            cursor = piece_end
+
+    result = []
+    for day_key in sorted(days.keys()):
+        day_segments = days[day_key]
+        totals = {
+            DUTY_OFF: 0.0,
+            DUTY_SLEEPER: 0.0,
+            DUTY_DRIVING: 0.0,
+            DUTY_ON_NOT_DRIVING: 0.0,
+        }
+        for seg in day_segments:
+            totals[seg.status] += seg.duration_hours
+
+        result.append(
+            {
+                "date": day_key.isoformat(),
+                "segments": [seg.to_dict() for seg in day_segments],
+                "totals_hours": {k: round(v, 2) for k, v in totals.items()},
+            }
+        )
+
+    return result
