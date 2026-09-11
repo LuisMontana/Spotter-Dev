@@ -1,0 +1,30 @@
+:root {
+  /* Base surfaces */
+  --bg-base: #14171b;
+  --bg-panel: #1b1f24;
+  --bg-panel-raised: #21262c;
+  --border-hairline: #2a2f36;
+
+  /* Text */
+  --text-primary: #e7e9ec;
+  --text-muted: #8b939d;
+  --text-dim: #5b6470;
+
+  /* Accent — amber, the color of hazard/marker lights on a rig */
+  --accent: #f2a93b;
+  --accent-dim: #8a6423;
+  --accent-text-on: #14171b;
+
+  /* Duty-status colors, matching the four rows of a paper log grid */
+  --status-off-duty: #5b6470;
+  --status-sleeper-berth: #4fa3c7;
+  --status-driving: #f2a93b;
+  --status-on-duty-not-driving: #d9564c;
+
+  /* Type */
+  --font-ui: "IBM Plex Sans", -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+
+  --radius-sm: 3px;
+  --radius-md: 4px;
+}
